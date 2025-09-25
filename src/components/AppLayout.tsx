@@ -6,8 +6,8 @@ function AppLayout() {
     return (
         <>
             <Navbar onInfoClick={() => {}} />
-            <div className="min-h-screen flex">
-                <div className="pt-[6rem] w-full">
+            <div className="flex" style={{ minHeight: 'calc(100vh - 200px)'}}>
+                <div className="w-full">
                     <Outlet />
                 </div>
             </div>

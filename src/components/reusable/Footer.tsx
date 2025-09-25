@@ -1,6 +1,6 @@
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-white border-t border-slate-200 py-8 mt-12">
+    <footer className="bg-white border-t border-slate-200 py-8">
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="text-sm text-slate-600 mb-2">

@@ -42,7 +42,7 @@ export const Navbar: React.FC<HeaderProps> = ({ onInfoClick }) => {
                   </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <a href="/predict-page">
+                  <a href="/dashboard-analytics">
                     Dashboard Analitik Rumah Bandung
                   </a>
                 </DropdownMenuItem>

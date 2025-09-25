@@ -24,14 +24,52 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@layouts/*": [
+        "layouts/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@pages": [
+        "pages/index"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@store/*": [
+        "store/*"
+      ],
+      "@constant/*": [
+        "constant/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@helpers/*": [
+        "helpers/*"
+      ],
       "@/*": [
-        "./src/*"
+        "*"
       ]
-    }
+    },
+    "types": ["node"]
   },
   "include": [
-    "src"
+    "src",
+    "vite.config.ts"
   ],
 }

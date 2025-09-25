@@ -1,11 +1,10 @@
 import { HomeIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
-import { API_CONFIG } from "../data/constants";
+import { API_CONFIG } from "../../data/constants";
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -13,7 +12,7 @@ interface HeaderProps {
   onInfoClick: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onInfoClick }) => {
+export const Navbar: React.FC<HeaderProps> = ({ onInfoClick }) => {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
       <div className="max-w-screen-md mx-auto px-4 sm:px-6 ">
@@ -38,10 +37,14 @@ export const Header: React.FC<HeaderProps> = ({ onInfoClick }) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="start">
                 <DropdownMenuItem>
-                  Prediksi Harga Rumah
+                  <a href="/predict-page">
+                    Prediksi Harga Rumah
+                  </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  Dashboard Analitik Rumah Bandung
+                  <a href="/predict-page">
+                    Dashboard Analitik Rumah Bandung
+                  </a>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

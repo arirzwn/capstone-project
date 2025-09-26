@@ -2,7 +2,7 @@ import type { ApiConfig } from "../types";
 
 // API Configuration
 export const API_CONFIG: ApiConfig = {
-  USE_REAL_API: false, // ganti ke false untuk dev mode
+  USE_REAL_API: true, // ganti ke false untuk dev mode
   BASE_URL: "https://home-value-api-819972734056.asia-southeast2.run.app",
   LOCAL_URL: "http://localhost:5001",
 };

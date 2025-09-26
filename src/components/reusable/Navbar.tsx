@@ -28,9 +28,9 @@ export const Navbar: React.FC<HeaderProps> = ({ onInfoClick }) => {
           </div>
 
           <div className="flex gap-5 items-center">
-            <a href="/">Beranda</a>
-            <a href="/about">Tentang</a>
-            <a href="technology">Teknologi</a>
+            <a href="/#">Beranda</a>
+            <a href="/#about-section">Tentang</a>
+            <a href="/#technology-section">Teknologi</a>
             <DropdownMenu>
               <DropdownMenuTrigger asChild >
                 <Button variant="outline">Fitur</Button>

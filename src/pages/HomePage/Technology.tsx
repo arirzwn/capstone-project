@@ -41,7 +41,7 @@ const systemStrength = [
 
 function Technology() {
     return (
-        <section className="flex flex-col pb-20 px-10 items-center" id="technology-section">
+        <section className="flex flex-col pt-20 pb-10 px-10 items-center" id="technology-section">
 
             <h2 className="text-3xl font-semibold">Teknologi Home Value</h2>
             <p className="mt-3 text-center">Home Value adalah platform prediksi harga rumah berbasis machine learning yang dirancang khusus untuk pasar properti Bandung.</p>

@@ -29,11 +29,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             <HomeIcon className="h-8 w-8 text-indigo-600" />
           </div>
           <h3 className="text-xl font-semibold text-slate-900 mb-2">
-            Ready for Prediction
+            Siap untuk Prediksi
           </h3>
           <p className="text-slate-600 max-w-sm">
-            Fill out the property details on the left and click "Predict Price"
-            to see your results here.
+            Isi detail properti di sebelah kiri, lalu klik “Prediksi Harga” untuk melihat hasilnya di sini.
           </p>
         </div>
       )}

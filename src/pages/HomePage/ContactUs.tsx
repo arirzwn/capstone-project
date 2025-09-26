@@ -1,6 +1,4 @@
 import ContactForm from "@components/ContactForm"
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { TbCirclesRelation } from "react-icons/tb";
 
 function ContactUs() {
     return (
@@ -62,7 +60,7 @@ function ContactUs() {
                                         Lokasi:
                                     </h3>
                                     <p className="mt-1 text-sm text-gray-500">
-                                        Jalan Wibawa Mukti II No.110D Jatisari Jatiasih Kota Bekasi 17426
+                                        Jl. HS.Ronggo Waluyo, Puseurjaya, Telukjambe Timur, Karawang, Jawa Barat 41361
                                     </p>
                                 </div>
                             </div>

@@ -41,16 +41,16 @@ const systemStrength = [
 
 function Technology() {
     return (
-        <section className="flex flex-col pt-20 pb-10 px-10 items-center" id="technology-section">
+        <section className="flex flex-col py-20 px-10 items-center bg-white" id="technology-section">
 
             <h2 className="text-3xl font-semibold">Teknologi Home Value</h2>
             <p className="mt-3 text-center">Home Value adalah platform prediksi harga rumah berbasis machine learning yang dirancang khusus untuk pasar properti Bandung.</p>
 
             <div className="flex justify-center items-center w-full">
                 <div className="flex gap-16 justify-center items-center w-2/5 p-10 rounded-xl flex-wrap">
-                    {technologyItem.map(i =>
+                    {technologyItem.map((i, index) =>
                     (
-                        <div className="flex flex-col gap-1 w-32 aspect-[144/200] items-center justify-between text-center shrink-0">
+                        <div key={index} className="flex flex-col gap-1 w-32 aspect-[144/200] items-center justify-between text-center shrink-0">
                             <h5 className="font-semibold">{i.field}</h5>
                             <img src={i.icon} alt={i.alt} className={`w-full shrink-0 ${i.icon === '/xgboost-icon.webp' ? ' aspect-[397/167]' : 'aspect-square'}`} />
                             <p>{i.label}</p>
@@ -64,8 +64,8 @@ function Technology() {
             <div className="w-full px-5 py-3 flex flex-col gap-8">
                 <h4 className="font-semibold text-xl">Mengapa Home Value?</h4>
                 <ul className="w-fit flex flex-col gap-3">
-                    {systemStrength.map(i => (
-                    <li className="flex gap-5 items-center">
+                    {systemStrength.map((i, index) => (
+                    <li className="flex gap-5 items-center" key={index}>
                         <div className="bg-indigo-500 w-5 aspect-square rounded-full shrink-0" />
                         <div className="flex flex-col gap-1">
                             <h5 className="font-semibold text-lg">{i.title}</h5>

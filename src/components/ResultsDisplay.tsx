@@ -1,6 +1,8 @@
 import { HomeIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import type { PredictionResult, PredictionFormData } from "../types";
 import { formatIDR } from "../utils";
+import CalculateKPR from "./CalculateKPR";
+
 
 interface ResultsDisplayProps {
   isLoading: boolean;
@@ -40,7 +42,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       {isLoading && (
         <div>
           <h3 className="text-2xl font-bold text-slate-900 mb-6">
-            Analyzing Property...
+            Menganalisis properti...
           </h3>
           <div className="animate-pulse">
             <div className="h-8 bg-slate-200 rounded-lg mb-4"></div>
@@ -57,7 +59,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       {error && (
         <div>
           <h3 className="text-2xl font-bold text-slate-900 mb-6">
-            Prediction Error
+            Terdapat Error
           </h3>
           <div className="bg-red-50 border border-red-200 rounded-xl p-6">
             <div className="flex items-center space-x-3">
@@ -66,14 +68,14 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
               <div>
                 <h4 className="text-red-800 font-semibold">
-                  Prediction Failed
+                  Prediksi Gagal
                 </h4>
                 <p className="text-red-700 text-sm">{error}</p>
                 <button
                   onClick={onClearError}
                   className="mt-2 text-red-600 hover:text-red-700 text-sm font-medium"
                 >
-                  Try again
+                  Coba lagi
                 </button>
               </div>
             </div>
@@ -84,7 +86,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       {prediction && (
         <div>
           <h3 className="text-2xl font-bold text-slate-900 mb-6">
-            Price Prediction
+            Prediksi Harga Rumah
           </h3>
 
           {/* Main Price Display */}
@@ -94,7 +96,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 {formatIDR(prediction.price)}
               </div>
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium">
-                ML Model Prediction (Est. Confidence: {prediction.confidence}%)
+                Prediksi Model ML (Tingkat Akurasi: {prediction.confidence}%)
               </div>
             </div>
           </div>
@@ -102,19 +104,17 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           {/* Price Breakdown */}
           <div className="mb-6">
             <h4 className="font-semibold text-slate-900 mb-3">
-              Estimated Price Factors
+              Faktor Perkiraan Harga
             </h4>
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3">
               <p className="text-sm text-amber-800">
-                <strong>Note:</strong> The breakdown below is estimated for
-                reference. The actual prediction is based on machine learning
-                analysis of all factors combined.
+                <strong>Catatan:</strong> Rincian di bawah ini merupakan perkiraan untuk referensi. Prediksi aktual didasarkan pada analisis pembelajaran mesin dari semua faktor yang digabungkan.
               </p>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-slate-600">
-                  Bedrooms ({formData.kamar_tidur})
+                  Kamar Tidur ({formData.kamar_tidur})
                 </span>
                 <span className="font-medium">
                   {formatIDR(prediction.breakdown.bedrooms)}
@@ -122,7 +122,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-slate-600">
-                  Land Area ({formData.luas_tanah}m²)
+                  Luas Tanah ({formData.luas_tanah}m²)
                 </span>
                 <span className="font-medium">
                   {formatIDR(prediction.breakdown.land)}
@@ -130,7 +130,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-slate-600">
-                  Building Area ({formData.luas_bangunan}m²)
+                  Luas Bangunan ({formData.luas_bangunan}m²)
                 </span>
                 <span className="font-medium">
                   {formatIDR(prediction.breakdown.building)}
@@ -138,7 +138,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-slate-600">
-                  Location ({formData.lokasi})
+                  Lokasi ({formData.lokasi})
                 </span>
                 <span className="font-medium">
                   {formatIDR(prediction.breakdown.location)}
@@ -149,7 +149,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
           {/* Price Range */}
           <div>
-            <h4 className="font-semibold text-slate-900 mb-3">Price Range</h4>
+            <h4 className="font-semibold text-slate-900 mb-3">Rentang Harga</h4>
             <div className="bg-slate-50 rounded-xl p-4">
               <div className="flex justify-between items-center text-sm">
                 <div className="text-center">
@@ -159,13 +159,13 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-slate-600 mb-1">Likely</div>
+                  <div className="text-slate-600 mb-1">Perkiraan</div>
                   <div className="font-medium text-indigo-600">
                     {formatIDR(prediction.priceRange.likely)}
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-slate-600 mb-1">Max</div>
+                  <div className="text-slate-600 mb-1">Maks</div>
                   <div className="font-medium">
                     {formatIDR(prediction.priceRange.max)}
                   </div>
@@ -177,6 +177,9 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
             </div>
           </div>
+
+          {/* Simulasi KPR */}
+          <CalculateKPR predictionPrice={prediction.price} />
         </div>
       )}
     </div>

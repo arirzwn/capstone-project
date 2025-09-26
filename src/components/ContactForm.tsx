@@ -49,7 +49,7 @@ function ContactForm() {
             name="firstname"
             id="firstname"
             className="py-3 lg:py-5 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-palewhite dark:border-gray-700 dark:text-black lg:placeholder:text-base"
-            placeholder="Jhon"
+            placeholder="John"
             required
           />
         </div>

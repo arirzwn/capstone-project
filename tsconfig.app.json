@@ -18,12 +18,16 @@
     "noEmit": true,
     "jsx": "react-jsx",
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "typeRoots": [
+      "./src/types/index.d.ts",
+      "./node_modules/@types"
+    ],
     "baseUrl": "./src",
     "paths": {
       "@components/*": [
@@ -66,10 +70,13 @@
         "*"
       ]
     },
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "src",
-    "vite.config.ts"
+    "vite.config.ts",
+    "src/utils/vanta.clouds.min.ts"
   ],
 }

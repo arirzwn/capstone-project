@@ -39,3 +39,5 @@ export interface ApiConfig {
   BASE_URL: string;
   LOCAL_URL: string;
 }
+
+

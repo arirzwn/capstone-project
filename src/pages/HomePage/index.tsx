@@ -4,14 +4,14 @@ import Jumbotron from "./Jumbotron";
 import Technology from "./Technology";
 
 function HomePageIndex() {
-    return (
-        <>
-            <Jumbotron />
-            <About />
-            <Technology />
-            <CTASection />
-        </>
-    )
+  return (
+    <>
+      <Jumbotron />
+      <About />
+      <Technology />
+      <CTASection />
+    </>
+  );
 }
 
-export default HomePageIndex
+export default HomePageIndex;

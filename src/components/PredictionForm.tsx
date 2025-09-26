@@ -31,14 +31,14 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 sticky top-24">
       <h3 className="text-2xl font-bold text-slate-900 mb-6">
-        Property Details
+        Detail Properti
       </h3>
 
       <form onSubmit={onSubmit} className="space-y-6">
         {/* Bedrooms */}
         <StepperInput
           id="kamar_tidur"
-          label="Bedrooms"
+          label="Kamar Tidur"
           value={formData.kamar_tidur}
           onChange={(value) => onInputChange("kamar_tidur", value)}
           onIncrement={() => onStepperChange("kamar_tidur", true)}
@@ -50,7 +50,8 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         {/* Bathrooms */}
         <StepperInput
           id="kamar_mandi"
-          label="Bathrooms"
+          label="Kamar Mandi
+"
           value={formData.kamar_mandi}
           onChange={(value) => onInputChange("kamar_mandi", value)}
           onIncrement={() => onStepperChange("kamar_mandi", true)}
@@ -62,7 +63,7 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         {/* Garage */}
         <StepperInput
           id="garasi"
-          label="Garage Capacity"
+          label="Kapasitas Garasi"
           value={formData.garasi}
           onChange={(value) => onInputChange("garasi", value)}
           onIncrement={() => onStepperChange("garasi", true)}
@@ -74,12 +75,12 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         {/* Land Area */}
         <NumberInput
           id="luas_tanah"
-          label="Land Area (m²)"
+          label="Luas Tanah (m²)"
           value={formData.luas_tanah}
           onChange={(value) => onInputChange("luas_tanah", value)}
           placeholder="e.g., 120"
           unit="m²"
-          helpText="Enter total land area in square meters"
+          helpText="Masukkan total luas tanah dalam meter persegi."
           error={formErrors.luas_tanah}
           min={1}
         />
@@ -87,12 +88,12 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         {/* Building Area */}
         <NumberInput
           id="luas_bangunan"
-          label="Building Area (m²)"
+          label="Luas Bangunan (m²)"
           value={formData.luas_bangunan}
           onChange={(value) => onInputChange("luas_bangunan", value)}
           placeholder="e.g., 80"
           unit="m²"
-          helpText="Enter building floor area in square meters"
+          helpText="Masukkan luas lantai bangunan dalam meter persegi."
           error={formErrors.luas_bangunan}
           min={1}
         />
@@ -100,24 +101,24 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         {/* Location */}
         <SelectInput
           id="lokasi"
-          label="Location"
+          label="Lokasi"
           value={formData.lokasi}
           onChange={(value) => onInputChange("lokasi", value)}
           options={locations}
-          placeholder="Select a city"
-          helpText="Choose the city where the property is located"
+          placeholder="Pilih kota"
+          helpText="Pilih kota tempat properti berada."
           error={formErrors.lokasi}
         />
 
         {/* Expected Selling Time */}
         <SelectInput
           id="waktu_penjualan"
-          label="Expected Selling Time"
+          label="Waktu Penjualan yang Diperkirakan"
           value={formData.waktu_penjualan}
           onChange={(value) => onInputChange("waktu_penjualan", value)}
           options={timeOptions}
-          placeholder="Select timeframe"
-          helpText="When do you plan to sell the property?"
+          placeholder="Pilih rentang waktu"
+          helpText="Kapan Anda berencana menjual properti?"
           error={formErrors.waktu_penjualan}
         />
 
@@ -128,7 +129,7 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
             disabled={isLoading}
             className="w-full sm:flex-1 inline-flex items-center justify-center rounded-xl bg-indigo-600 text-white px-5 py-3 font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isLoading ? "Predicting..." : "Predict Price"}
+            {isLoading ? "Sedang memprediksi..." : "Prediksi Harga"}
           </button>
           <button
             type="button"

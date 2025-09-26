@@ -1,8 +1,16 @@
+import About from "./About";
+import CTASection from "./ContactUs";
+import Jumbotron from "./Jumbotron";
+import Technology from "./technology";
+
 function HomePageIndex() {
     return (
-        <div>
-            Hello World
-        </div>
+        <>
+            <Jumbotron />
+            <About />
+            <Technology />
+            <CTASection />
+        </>
     )
 }
 

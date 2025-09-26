@@ -1,6 +1,4 @@
-import ContactForm from "@components/ContactForm"
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { TbCirclesRelation } from "react-icons/tb";
+import ContactForm from "@components/ContactForm";
 
 function ContactUs() {
     return (

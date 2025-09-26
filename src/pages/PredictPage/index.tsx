@@ -10,8 +10,6 @@ import {
     PredictionForm,
     ResultsDisplay,
 } from "@/components";
-import { Navbar } from "@components/reusable/Navbar";
-import { Footer } from "@components/reusable/Footer";
 
 function PredictPage() {
     // Log current API mode on app start

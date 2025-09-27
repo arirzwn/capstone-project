@@ -255,9 +255,37 @@ function DashboardPage() {
           {/* Insights Section */}
           <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-md p-6 mb-8 text-white">
             <h2 className="text-xl font-semibold mb-4">Insight Pasar</h2>
-            <p className="text-blue-100 leading-relaxed">
-              {analyticsData.insight}
-            </p>
+            {analyticsData.insight === "MAINTENANCE_MODE" ? (
+              <div className="text-center py-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
+                  <svg
+                    className="w-8 h-8 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">
+                  Pemeliharaan Sistem
+                </h3>
+                <p className="text-blue-100 leading-relaxed">
+                  Mohon tunggu, fitur insight pasar sedang dalam pemeliharaan
+                  sistem. Silakan coba lagi nanti. Sementara itu, Anda masih
+                  dapat melihat grafik dan statistik lainnya.
+                </p>
+              </div>
+            ) : (
+              <p className="text-blue-100 leading-relaxed">
+                {analyticsData.insight}
+              </p>
+            )}
           </div>
 
           {/* Charts Section */}
@@ -280,11 +308,11 @@ function DashboardPage() {
           {/* Data Tables Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <PropertyTable
-              title="5 Properti Termahal"
+              title="5 Lokasi Properti Termahal"
               data={analyticsData.tabel.top_5_mahal}
             />
             <PropertyTable
-              title="5 Properti Termurah"
+              title="5 Lokasi Properti Termurah"
               data={analyticsData.tabel.top_5_murah}
             />
           </div>

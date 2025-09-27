@@ -101,24 +101,24 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         {/* Location */}
         <SelectInput
           id="lokasi"
-          label="Lokasi"
+          label="Wilayah"
           value={formData.lokasi}
           onChange={(value) => onInputChange("lokasi", value)}
           options={locations}
-          placeholder="Pilih kota"
-          helpText="Pilih kota tempat properti berada."
+          placeholder="Pilih Wilayah"
+          helpText="Pilih wilayah tempat properti berada."
           error={formErrors.lokasi}
         />
 
         {/* Expected Selling Time */}
         <SelectInput
           id="waktu_penjualan"
-          label="Waktu Penjualan yang Diperkirakan"
+          label="Waktu pembelian/penjualan yang Diperkirakan"
           value={formData.waktu_penjualan}
           onChange={(value) => onInputChange("waktu_penjualan", value)}
           options={timeOptions}
           placeholder="Pilih rentang waktu"
-          helpText="Kapan Anda berencana menjual properti?"
+          helpText="Kapan Anda berencana membeli/menjual properti?"
           error={formErrors.waktu_penjualan}
         />
 

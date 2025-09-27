@@ -184,7 +184,9 @@ function DashboardPage() {
             <StatisticsCard
               title="RATA-RATA KAMAR TIDUR"
               value={Math.round(analyticsData.kpi_cards.avg_kamar_tidur)}
-              label={`${Math.round(analyticsData.kpi_cards.avg_kamar_tidur)} kamar`}
+              label={`${Math.round(
+                analyticsData.kpi_cards.avg_kamar_tidur
+              )} kamar`}
               icon={
                 <svg
                   className="w-6 h-6"
@@ -205,7 +207,9 @@ function DashboardPage() {
             <StatisticsCard
               title="RATA-RATA KAMAR MANDI"
               value={Math.round(analyticsData.kpi_cards.avg_kamar_mandi)}
-              label={`${Math.round(analyticsData.kpi_cards.avg_kamar_mandi)} kamar`}
+              label={`${Math.round(
+                analyticsData.kpi_cards.avg_kamar_mandi
+              )} kamar`}
               icon={
                 <svg
                   className="w-6 h-6"

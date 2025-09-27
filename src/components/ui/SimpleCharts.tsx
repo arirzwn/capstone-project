@@ -1,4 +1,25 @@
 import React from "react";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from 'chart.js';
+import { Doughnut, Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title
+);
 
 interface PriceDistributionChartProps {
   data: number[];
@@ -9,42 +30,92 @@ export const PriceDistributionChart: React.FC<PriceDistributionChartProps> = ({
   data,
   className = "",
 }) => {
-  const formatCurrency = (amount: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-      notation: "compact",
-    }).format(amount);
+
+  // Create price ranges based on the data
+  const createPriceRanges = (prices: number[]) => {
+    if (!prices || prices.length === 0) return { ranges: [], counts: [] };
+    
+    const ranges = [
+      { label: "< 500 jt", min: 0, max: 500000000, color: 'rgba(34, 197, 94, 0.8)' },
+      { label: "500 jt - 1 M", min: 500000000, max: 1000000000, color: 'rgba(59, 130, 246, 0.8)' },
+      { label: "1 M - 2 M", min: 1000000000, max: 2000000000, color: 'rgba(245, 158, 11, 0.8)' },
+      { label: "2 M - 3 M", min: 2000000000, max: 3000000000, color: 'rgba(139, 92, 246, 0.8)' },
+      { label: "3 M - 5 M", min: 3000000000, max: 5000000000, color: 'rgba(236, 72, 153, 0.8)' },
+      { label: "> 5 M", min: 5000000000, max: Infinity, color: 'rgba(239, 68, 68, 0.8)' }
+    ];
+
+    const counts = ranges.map(range => {
+      return prices.filter(price => price >= range.min && price < range.max).length;
+    });
+
+    return { ranges, counts };
   };
 
-  const labels = [
-    "Rentang Harga Tinggi",
-    "Rentang Harga Menengah",
-    "Rentang Harga Rendah",
-  ];
-  const colors = ["bg-red-500", "bg-blue-500", "bg-green-500"];
+  if (!data || data.length === 0) {
+    return (
+      <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Distribusi Harga
+        </h3>
+        <p className="text-gray-500">Data tidak tersedia</p>
+      </div>
+    );
+  }
+
+  const { ranges, counts } = createPriceRanges(data);
+  
+  // Filter out ranges with zero count
+  const filteredData = ranges
+    .map((range, index) => ({ ...range, count: counts[index] }))
+    .filter(item => item.count > 0);
+
+  const chartData = {
+    labels: filteredData.map(item => item.label),
+    datasets: [
+      {
+        label: 'Jumlah Properti',
+        data: filteredData.map(item => item.count),
+        backgroundColor: filteredData.map(item => item.color),
+        borderColor: filteredData.map(item => item.color.replace('0.8', '1')),
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right' as const,
+        labels: {
+          usePointStyle: true,
+          padding: 20,
+        }
+      },
+      title: {
+        display: true,
+        text: 'Distribusi Harga Properti',
+        font: {
+          size: 16,
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
+            const percentage = ((context.parsed / total) * 100).toFixed(1);
+            return `${context.label}: ${context.parsed} properti (${percentage}%)`;
+          }
+        }
+      }
+    },
+  };
 
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Distribusi Harga
-      </h3>
-      <div className="space-y-4">
-        {data.map((value, index) => (
-          <div key={index} className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className={`w-4 h-4 rounded ${colors[index]}`}></div>
-              <span className="text-sm font-medium text-gray-700">
-                {labels[index]}
-              </span>
-            </div>
-            <span className="text-sm font-semibold text-gray-900">
-              {formatCurrency(value)}
-            </span>
-          </div>
-        ))}
+      <div className="h-96">
+        <Doughnut data={chartData} options={options} />
       </div>
     </div>
   );
@@ -59,45 +130,74 @@ export const LocationPriceChart: React.FC<LocationPriceChartProps> = ({
   data,
   className = "",
 }) => {
-  const formatCurrency = (amount: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-      notation: "compact",
-    }).format(amount);
+  if (!data || data.length === 0) {
+    return (
+      <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Harga Rata-rata per Lokasi
+        </h3>
+        <p className="text-gray-500">Data tidak tersedia</p>
+      </div>
+    );
+  }
+
+  const chartData = {
+    labels: data.map(item => item.lokasi),
+    datasets: [
+      {
+        label: 'Harga (Milyar Rupiah)',
+        data: data.map(item => item.harga / 1000000000), // Convert to billions
+        backgroundColor: 'rgba(59, 130, 246, 0.8)',
+        borderColor: 'rgba(59, 130, 246, 1)',
+        borderWidth: 2,
+      },
+    ],
   };
 
-  const maxPrice = Math.max(...data.map((item) => item.harga));
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: 'Harga Rata-rata per Lokasi',
+        font: {
+          size: 16,
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return `Rp ${context.parsed.y.toFixed(2)}M`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return `Rp ${Number(value).toFixed(1)}M`;
+          }
+        }
+      },
+      x: {
+        ticks: {
+          maxRotation: 45,
+          minRotation: 45
+        }
+      }
+    },
+  };
 
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Harga Rata-rata per Lokasi
-      </h3>
-      <div className="space-y-3">
-        {data.slice(0, 8).map((item, index) => {
-          const percentage = (item.harga / maxPrice) * 100;
-          return (
-            <div key={index} className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="font-medium text-gray-700 truncate">
-                  {item.lokasi}
-                </span>
-                <span className="font-semibold text-gray-900">
-                  {formatCurrency(item.harga)}
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-                  style={{ width: `${percentage}%` }}
-                ></div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="h-96">
+        <Bar data={chartData} options={options} />
       </div>
     </div>
   );
@@ -112,46 +212,77 @@ export const BedroomProportionChart: React.FC<BedroomProportionChartProps> = ({
   data,
   className = "",
 }) => {
+  if (!data || data.length === 0) {
+    return (
+      <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Distribusi Properti berdasarkan Jumlah Kamar Tidur
+        </h3>
+        <p className="text-gray-500">Data tidak tersedia</p>
+      </div>
+    );
+  }
+
   const total = data.reduce((sum, item) => sum + item.jumlah_rumah, 0);
-  const colors = [
-    "bg-pink-500",
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-teal-500",
-    "bg-purple-500",
-  ];
+
+  const chartData = {
+    labels: data.map(item => `${item.jumlah_kamar} Kamar`),
+    datasets: [
+      {
+        label: 'Jumlah Rumah',
+        data: data.map(item => item.jumlah_rumah),
+        backgroundColor: [
+          'rgba(236, 72, 153, 0.8)',
+          'rgba(59, 130, 246, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(139, 92, 246, 0.8)',
+        ],
+        borderColor: [
+          'rgba(236, 72, 153, 1)',
+          'rgba(59, 130, 246, 1)',
+          'rgba(245, 158, 11, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(139, 92, 246, 1)',
+        ],
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right' as const,
+        labels: {
+          usePointStyle: true,
+          padding: 20,
+        }
+      },
+      title: {
+        display: true,
+        text: 'Distribusi Properti berdasarkan Jumlah Kamar Tidur',
+        font: {
+          size: 16,
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const percentage = ((context.parsed / total) * 100).toFixed(1);
+            return `${context.label}: ${context.parsed.toLocaleString('id-ID')} rumah (${percentage}%)`;
+          }
+        }
+      }
+    },
+  };
 
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-        Distribusi Properti berdasarkan Jumlah Kamar Tidur
-      </h3>
-      <div className="space-y-4">
-        {data.map((item, index) => {
-          const percentage = (item.jumlah_rumah / total) * 100;
-          return (
-            <div key={index} className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div
-                  className={`w-4 h-4 rounded ${
-                    colors[index] || "bg-gray-500"
-                  }`}
-                ></div>
-                <span className="text-sm font-medium text-gray-700">
-                  {item.jumlah_kamar} Kamar Tidur
-                </span>
-              </div>
-              <div className="text-right">
-                <div className="text-sm font-semibold text-gray-900">
-                  {item.jumlah_rumah.toLocaleString("id-ID")}
-                </div>
-                <div className="text-xs text-gray-500">
-                  {percentage.toFixed(1)}%
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="h-96">
+        <Doughnut data={chartData} options={options} />
       </div>
     </div>
   );

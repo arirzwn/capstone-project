@@ -6,5 +6,5 @@ export {
   PriceDistributionChart,
   LocationPriceChart,
   BedroomProportionChart,
-} from "./Charts";
+} from "./SimpleCharts";
 export { PropertyTable } from "./PropertyTable";
